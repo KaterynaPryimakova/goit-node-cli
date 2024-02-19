@@ -35,3 +35,4 @@ async function invokeAction({ action, id, name, email, phone }) {
 }
 
 invokeAction(options);
+console.log("Hello! you can do it!!");
