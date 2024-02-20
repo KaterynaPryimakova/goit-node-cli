@@ -6,6 +6,7 @@ import {
     addContact,
     updateContact,
 } from "./contacts.js";
+
 program
     .option("-a, --action <type>", "choose action")
     .option("-i, --id <type>", "user id")
@@ -17,32 +18,31 @@ program.parse();
 
 const options = program.opts();
 
-// TODO: рефакторити
 async function invokeAction({ action, id, name, email, phone }) {
     switch (action) {
         case "list":
             const contacts = await listContacts();
+            console.table(contacts);
             break;
 
         case "get":
             const oneContact = await getContactById(id);
+            console.log(oneContact);
             break;
 
         case "add":
-            // ... name email phone
             const newContact = await addContact(name, email, phone);
+            console.log(newContact);
             break;
 
         case "remove":
             const removedContact = await removeContact(id);
+            console.log(removeContact);
             break;
 
         case "update":
-            const updatedContact = await updateContact(id, {
-                name,
-                email,
-                phone,
-            });
+            const updatedContact = await updateContact(id, name, email, phone);
+            console.log(updatedContact);
             break;
 
         default:
@@ -51,4 +51,3 @@ async function invokeAction({ action, id, name, email, phone }) {
 }
 
 invokeAction(options);
-console.log("Hello! you can do it!!");
